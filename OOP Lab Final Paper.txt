@@ -1,0 +1,209 @@
+QUESTION 1:
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+
+public class RestaurantSlip
+{
+ public static void main(String [] args)
+ {
+  JFrame frame = new JFrame("Restaurant Slip");
+  frame.setSize(400, 400);
+  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  frame.setLayout(new GridLayout(6, 3, 10, 10));
+
+  String [] restaurants = {"Burger", "Pizza", "Fries", "Soda"};
+  int [] prices = {50, 200, 150, 120};
+
+  JLabel [] restaurantLabels = new JLabel [restaurants.length];
+  JTextField [] quantityFields = new JTextField [restaurants.length];
+  JLabel [] priceLabels = new JLabel [restaurants.length];
+
+  for (int i = 0; i < restaurants.length; i++)
+  {
+   restaurantLabels [i] = new JLabel (restaurants [i] + " (Rate: " + prices [i] + ")");
+   quantityFields [i] = new JTextField();
+   priceLabels [i] = new JLabel();
+   frame.add (restaurantLabels [i]);
+   frame.add(quantityFields [i]);
+   frame.add(priceLabels [i]);
+  }
+
+  JButton totalButton = new JButton("Total");
+  JLabel totalLabel = new JLabel("Your Total: ");
+  frame.add(new JLabel());
+  frame.add(totalButton);
+  frame.add(totalLabel);
+
+  totalButton.addActionListener(new ActionListener()
+  {
+   @Override
+   public void actionPerformed(ActionEvent e)
+   {
+    int total = 0;
+    for (int i = 0; i < restaurants.length; i++)
+    {
+     try
+     {
+      int quantity = Integer.parseInt(quantityFields[i].getText());
+      int cost = quantity * prices[i];
+      priceLabels[i].setText("Cost: " + cost);
+      total += cost;
+     }
+     catch (NumberFormatException ex)
+     {
+      priceLabels[i].setText("Invalid Input");
+     }
+    }
+    totalLabel.setText("Your Total: " + total);
+    }
+   });
+
+   frame.setVisible(true);
+ }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+QUESTION 2:
+public class MinExample
+{
+ public static int min(int a, int b)
+ {
+  if (a < b)
+  {
+   return a;
+  }
+  else
+  {
+   return b;
+  }  
+ }
+
+ public static float min(float a, float b)
+ {
+  if (a < b)
+  {
+   return a;
+  }
+  else
+  {
+   return b;
+  }      
+ }
+
+ public static void main(String[] args)
+ {
+  System.out.println("Smaller of 10 and 20 (int): " + min(10, 20));
+  System.out.println("Smaller of 0.1 and 4.9 (float): " + min(0.1f, 4.9f));
+ }
+}
+
+-------------------------------------------------------------------------------------------------------
+
+QUESTION 3:
+import java.util.Scanner;
+
+class Employee
+{
+ private String Name;
+ private String ID;
+
+ public Employee(String Name, String ID)
+ {
+  this.Name = Name;
+  this.ID = ID;
+ }
+
+ public String getName()
+ {
+  return Name;
+ }
+
+ public String getID()
+ {
+  return ID;
+ }
+}
+
+class Manager extends Employee
+{
+ private String Department;
+
+ public Manager(String Name, String ID, String Department)
+ {
+  super(Name, ID);
+  this.Department = Department;
+ }
+
+ public String getDepartment()
+ {
+  return Department;
+ }
+}
+
+public class BasicEmployeeManagementSystem
+{
+ public static void main(String[] args)
+ {
+  Scanner scanner = new Scanner(System.in);
+  while (true)
+  {
+   System.out.println("Who are you?");
+   System.out.println("1. Employee");
+   System.out.println("2. Manager");
+   System.out.println("3. Exit");
+   System.out.print("Enter your choice (1 for Employee, 2 for Manager, 3 for Exit): ");
+
+   int option = scanner.nextInt();
+   scanner.nextLine(); 
+   switch (option)
+   {
+    case 1:
+           System.out.print("Enter Your Name: ");
+           String empName = scanner.nextLine();
+
+           System.out.print("Enter Your ID: ");
+           String empID = scanner.nextLine();
+
+           Employee employee = new Employee(empName, empID);
+
+           System.out.println("Employee Details:");
+           System.out.println("Name: " + employee.getName());
+           System.out.println("ID: " + employee.getID());
+    break;
+
+    case 2:
+           System.out.print("Enter Your Name: ");
+           String mgrName = scanner.nextLine();
+
+           System.out.print("Enter Your ID: ");
+           String mgrID = scanner.nextLine();
+
+           System.out.print("Enter Your Department: ");
+           String mgrDept = scanner.nextLine();
+
+           Manager manager = new Manager(mgrName, mgrID, mgrDept);
+
+           System.out.println("Manager Details:");
+           System.out.println("Name: " + manager.getName());
+           System.out.println("ID: " + manager.getID());
+           System.out.println("Department: " + manager.getDepartment());
+    break;
+
+    case 3:
+           System.out.println(" EXITING... ");
+           return;
+    
+    default:
+           System.out.println("ERROR! You entered the wrong option.");
+           break;
+   }
+  }
+ }
+}
+
+
+
+-----------------------------------THE END---------------------------------------------------------------------------------------------------------------
